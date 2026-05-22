@@ -1,175 +1,207 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>다온라이프 - 스마트폰</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* 기본 초기화 */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1e293b; line-height: 1.6; }
-        
-        /* 헤더 전체 컨테이너 */
-        .header-container {
-            background: #fff;
-            padding: 40px 80px 25px 80px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-        
-        /* 1. 다온라이프 대형 로고 (윗줄 단독 배치) */
-        .brand-logo { 
-            font-size: 36px; 
-            font-weight: 700; 
-            color: #003366; 
-            text-decoration: none; 
-            letter-spacing: -1px;
-            margin-bottom: 35px;
-        }
-        
-        /* 2. [검증 완료] 챗지피티 스타일 메뉴바 정밀 최적화 */
-        .nav-menu { 
-            display: flex; 
-            width: 100%;          
-            gap: 20px;            
-            justify-content: flex-start; 
-        }
-        .nav-item { 
-            font-size: 20px;       
-            font-weight: 500; 
-            color: #64748b; 
-            text-decoration: none; 
-            padding: 0 18px 8px 18px; 
-            letter-spacing: -0.5px;   
-            position: relative;
-            white-space: nowrap;  
-        }
-        
-        /* 현재 선택된 메뉴 하단 강조선 */
-        .nav-item.active { 
-            color: #003366; 
-            font-weight: 700; 
-        }
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            left: 18px;           
-            bottom: 0;
-            width: calc(100% - 36px); 
-            height: 3px;
-            background-color: #003366;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#003366">
+  <title>다온라이프 | 스마트폰 수당 매장</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root { 
+      --primary: #003366; 
+      --secondary: #005088; 
+      --bg: #f8fafc; 
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+    }
+    body { margin: 0; font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg); color: #333; line-height: 1.6; }
 
-        /* 메인 좌우 정렬 고정 히어로 섹션 */
-        .hero-section { 
-            background: #ffffff; 
-            padding: 100px 80px; 
-            display: flex;             
-            align-items: center; 
-            justify-content: space-between;
-            max-width: 1400px;
-            margin: 0 auto;
-            gap: 60px;
-        }
-        
-        /* 왼쪽 설명 글 구역 */
-        .hero-text {
-            flex: 1;                  
-            text-align: left;         
-            max-width: 650px;
-        }
-        .hero-text h1 { font-size: 46px; font-weight: 700; color: #1e293b; margin-bottom: 30px; line-height: 1.3; letter-spacing: -1px; }
-        .hero-text p { font-size: 20px; color: #475569; line-height: 1.7; word-break: keep-all; }
-        
-        /* 오른쪽 이미지 구역 */
-        .hero-image { 
-            flex: 1;                  
-            max-width: 600px;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .hero-image img { 
-            width: 100%; 
-            max-width: 550px;         
-            height: auto; 
-            border-radius: 24px; 
-            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.04);
-            display: block;
-        }
+    /* [1층] 대형 한글 상호명 영역 */
+    .header-top { background: #fff; padding: 40px 60px 10px 60px; }
+    .logo-text { font-size: 64px; font-weight: 800; color: var(--primary); letter-spacing: -2px; cursor: pointer; display: inline-block; }
 
-        /* 하부 서브 콘텐츠 영역 */
-        .container { max-width: 1300px; margin: 60px auto 80px auto; padding: 0 40px; }
-        .section-title { font-size: 28px; color: #0f172a; font-weight: 700; margin-bottom: 40px; text-align: center; }
-        
-        .grid-cards { display: flex; gap: 30px; justify-content: space-between; }
-        .card { flex: 1; background: white; padding: 35px; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02); transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card i { font-size: 36px; color: #005088; margin-bottom: 20px; display: block; }
-        .card h3 { font-size: 22px; color: #0f172a; margin-bottom: 15px; }
-        .card p { color: #64748b; font-size: 16px; line-height: 1.5; text-align: left; }
+    /* [2층] 카테고리 메뉴 영역 */
+    .nav-bar { background: #fff; padding: 20px 60px 35px 60px; border-bottom: 2px solid #eee; width: 100%; box-sizing: border-box; }
+    .nav-bar ul { list-style: none !important; padding: 0 !important; margin: 0 !important; display: flex !important; flex-direction: row !important; align-items: center !important; }
+    .nav-bar ul li { display: block !important; margin-right: 60px !important; }
+    .nav-bar ul li:last-child { margin-right: 0 !important; }
+    .nav-bar ul li a { text-decoration: none !important; color: #475569; font-size: 22px !important; font-weight: 600 !important; padding-bottom: 10px; display: inline-block !important; letter-spacing: -0.5px !important; transition: all 0.2s ease-in-out; }
+    .nav-bar ul li a:hover, .nav-bar ul li a.active { color: #003366; font-weight: 700 !important; border-bottom: 3px solid #003366; }
 
-        footer { background: #0f172a; color: #94a3b8; padding: 40px 60px; text-align: center; font-size: 15px; margin-top: 100px; }
-    </style>
+    /* [3층] 프리미엄 마이오피스 바 */
+    .my-office-bar { background: linear-gradient(90deg, #003366, #005088); color: white; padding: 18px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    .office-info { display: flex; flex-wrap: wrap; gap: 35px; font-size: 19px; }
+    .copy-link-btn { background: #fff; color: var(--primary); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 16px; font-family: inherit; }
+    .copy-link-btn:hover { background: #e8f0fa; }
+    .copy-link-btn.copied { background: #ffeb3b; }
+
+    /* [4층] 스마트폰 전용 콘텐츠 영역 */
+    .phone-container { padding: 60px; max-width: 1200px; margin: 0 auto; }
+    .section-title { font-size: 32px; font-weight: 800; color: #1a1a1a; margin-bottom: 10px; text-align: center; }
+    .section-desc { font-size: 17px; color: #667085; text-align: center; margin-bottom: 40px; }
+
+    /* 유입 경로별 이원화 탭 카드 */
+    .strategy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin-bottom: 50px; }
+    .strategy-card { background: #fff; border: 2px solid #e2e8f0; border-radius: 20px; padding: 40px 30px; text-align: center; transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+    .strategy-card.active { border-color: var(--primary); box-shadow: 0 10px 25px rgba(0,51,102,0.08); }
+    
+    .badge { display: inline-block; padding: 6px 16px; border-radius: 50px; font-size: 14px; font-weight: 700; margin-bottom: 20px; }
+    .badge.ai { background: #e0f2fe; color: #0369a1; }
+    .badge.b2b { background: #dcfce7; color: #15803d; }
+
+    .strategy-card h4 { font-size: 24px; margin: 0 0 15px 0; color: #1a1a1a; }
+    .strategy-card p { font-size: 16px; color: #64748b; margin-0: 0 0 25px 0; line-height: 1.5; }
+    
+    .benefit-box { background: #f8fafc; border-radius: 12px; padding: 20px; margin-bottom: 30px; text-align: left; }
+    .benefit-item { display: flex; align-items: center; gap: 10px; font-size: 15px; color: #334155; margin-bottom: 10px; }
+    .benefit-item:last-child { margin-bottom: 0; }
+    .benefit-item i { color: var(--primary); }
+
+    .apply-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 16px; border-radius: 12px; font-size: 18px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+    .apply-btn:hover { background: var(--secondary); }
+
+    /* 🔥 핵심: 법적 면책 약관 경고문 박스 */
+    .policy-warning-box { background-color: var(--danger-bg); border: 2px dashed var(--danger); border-radius: 20px; padding: 35px; margin-top: 50px; }
+    .policy-title { color: var(--danger); font-size: 20px; font-weight: 800; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .policy-list { margin: 0; padding-left: 20px; color: #451a03; font-size: 15px; }
+    .policy-list li { margin-bottom: 12px; line-height: 1.6; }
+    .policy-list li strong { color: var(--danger); }
+
+    footer { padding: 50px 60px; background: #1a1a1a; color: #999; text-align: center; font-size: 16px; }
+    footer p { margin: 6px 0; }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(60px); background: var(--primary); color: #fff; padding: 12px 22px; border-radius: 50px; font-size: 14px; font-weight: 700; opacity: 0; transition: transform 0.3s, opacity 0.3s; z-index: 100; }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    @media (max-width: 1024px) {
+      .phone-container { padding: 40px 20px; }
+      .strategy-grid { grid-template-columns: 1fr; gap: 20px; }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="header-container">
-        <div class="header-inner">
-            <a href="index.html" class="brand-logo">다온라이프</a>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-item">회사소개</a>
-                <a href="insurance.html" class="nav-item">셀프보험</a>
-                <a href="phone.html" class="nav-item active">스마트폰</a>
-                <a href="internet.html" class="nav-item">초고속인터넷</a>
-                <a href="rental.html" class="nav-item">생활가전렌탈</a>
-            </div>
+  <div class="header-top">
+    <div class="logo-text" onclick="location.href='index.html'">다온라이프</div>
+  </div>
+
+  <nav class="nav-bar">
+    <ul>
+      <li><a href="index.html">회사소개</a></li>
+      <li><a href="insurance.html">셀프보험</a></li>
+      <li><a href="phone.html" class="active">스마트폰</a></li>
+      <li><a href="internet.html">초고속인터넷</a></li>
+      <li><a href="rental.html">생활가전렌탈</a></li>
+    </ul>
+  </nav>
+
+  <div class="my-office-bar">
+    <div class="office-info">
+      <span><i class="fa-solid fa-user-tie"></i> <b>직급:</b> <span id="rankText">에이전트</span></span>
+      <span><i class="fa-solid fa-chart-line"></i> <b>나의 수당 요율:</b> <b id="rateText" style="color:#ffeb3b">70%</b></span>
+    </div>
+    <button type="button" class="copy-link-btn" id="btnCopy">내 추천 링크 복사</button>
+  </div>
+
+  <main class="phone-container">
+    <h2 class="section-title">스마트폰 개통 신청 센터</h2>
+    <p class="section-desc">다온라이프 회원 전용 통신 3사 도매 마진 다이렉트 연동 매장입니다.</p>
+
+    <div class="strategy-grid">
+      
+      <div class="strategy-card active">
+        <div>
+          <span class="badge ai"><i class="fa-solid fa-robot"></i> AI 온라인 마케팅 개통</span>
+          <h4>일반 회원 리워드 신청</h4>
+          <p>전국 어디서나 24시간 간편한 셀프 접수 시스템</p>
+          <div class="benefit-box">
+            <div class="benefit-item"><i class="fa-solid fa-check"></i> <span>정직한 대기업 도매 마진 70% 그대로 배정</span></div>
+            <div class="benefit-item"><i class="fa-solid fa-clock"></i> <span><b>정산 지급 시기:</b> 개통 후 6개월(183일) 유지 확인 후 익월 현금 지급</span></div>
+            <div class="benefit-item"><i class="fa-solid fa-shield"></i> <span>온라인 먹튀 방지 금융 전산 안전 필터 적용</span></div>
+          </div>
         </div>
+        <button class="apply-btn" onclick="alert('온라인 개통 신청 페이지로 이동합니다.')">온라인 셀프개통 신청하기</button>
+      </div>
+
+      <div class="strategy-card">
+        <div>
+          <span class="badge b2b"><i class="fa-solid fa-store"></i> 우수 파트너 / B2B 고객사</span>
+          <h4>기기값 즉시 차감 신청</h4>
+          <p>신원이 입증된 포스기 제휴 가맹점 대표님 전용 특판 매장</p>
+          <div class="benefit-box">
+            <div class="benefit-item"><i class="fa-solid fa-bolt"></i> <span><b>파격 혜택:</b> 리워드 마진 70%를 <b>기기값(할부원금)에서 즉시 차감</b></span></div>
+            <div class="benefit-item"><i class="fa-solid fa-face-smile"></i> <span>기다리는 페이백 없이 개통 즉시 현장 할인 효과</span></div>
+            <div class="benefit-item"><i class="fa-solid fa-user-check"></i> <span>소상공인 파트너십 전용 특별 비공개 승인 전산</span></div>
+          </div>
+        </div>
+        <button class="apply-btn" style="background:#15803d;" onclick="alert('포스기 고객사 인증 후 특판 매장으로 이동합니다.')">B2B 점주 전용 신청하기</button>
+      </div>
+
     </div>
 
-    <div class="hero-section">
-        <div class="hero-text">
-            <h1>대한민국 모든 단말기<br>전산 직접 개통</h1>
-            <p>더 이상 대리점에 방문하여 불필요한 부가서비스에 가입할 필요가 없습니다. 본인의 마이오피스에서 직접 개통하고, 대리점이 가져가던 막대한 개통 수수료를 수당으로 직접 수령하십시오. SKT, KT, LG U+ 3사 통신사를 모두 완벽하게 지원합니다.</p>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80" alt="최신 스마트폰 사용 이미지">
-        </div>
+    <div class="policy-warning-box">
+      <div class="policy-title">
+        <i class="fa-solid fa-triangle-exclamation"></i> 중요: 다온라이프 통신 전산망 환수 및 면책 규정 고지
+      </div>
+      <ul class="policy-list">
+        <li>스마트폰 유통 구조 및 통신사 약정 규정에 따라, 개통 후 <strong>필수 요금제 및 부가서비스는 183일(6개월)간 반드시 유지</strong>되어야 정상 건으로 확정됩니다.</li>
+        <li>유지 기간 내 의도적인 요금제 하향, 해지, 정지 등 <strong>이른바 '먹튀형 의도적 부정 가입' 발생 시, 총판으로부터 법인에 환수(패널티) 청구</strong>가 들어옵니다.</li>
+        <li>이에 대응하여 다온라이프 시스템은 환수 발생 즉시 <strong>해당 가입자의 수당은 물론, 상위 조직(추천인, 팀장, 지점장)에게 배정된 모든 오버라이딩 수당까지 실시간 전산 추적하여 자동으로 '지급 취소 및 전액 차감' 처리</strong>합니다.</li>
+        <li>부정 개통으로 인해 다온라이프 및 상위 추천인 조직에 금전적 손실을 입힐 경우, 회원 약관 및 민법 제750조 불법행위 구상권 청구 조항에 의거하여 <strong>가입 당사자에게 손해배상 청구 및 법적 구상권 조항이 발동</strong>됨을 명시합니다.</li>
+      </ul>
     </div>
+  </main>
 
-    <div class="container">
-        <h2 class="section-title">다온라이프 스마트폰 개통만의 차별점</h2>
-        <div class="grid-cards">
-            <div class="card">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                <h3>모집수당 70% 귀속</h3>
-                <p>복잡한 중간 유통망 수수료 없이 직접 확인하고 신청하여 최대 마진을 나의 수당으로 확보할 수 있습니다.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-network-wired"></i>
-                <h3>통신 3사 공식 전산 연동</h3>
-                <p>기본 뼈대 구축 완료 후 대표님께서 기획하신 통신사별 결합할인 및 세부 개통 가이드 안내 문구가 이 자리에 들어갈 예정입니다.</p>
-            </div>
-            <div class="card">
-                <i class="fa-solid fa-sim-card"></i>
-                <h3>당일 발송 및 즉시 개통</h3>
-                <p>기본 뼈대 구축 완료 후 대표님께서 기획하신 비대면 간편 신청 유심 발송 및 전산 처리 프로세스 문구가 이 자리에 들어갈 예정입니다.</p>
-            </div>
-        </div>
-    </div>
+  <footer>
+    <p>Copyright © 2026 DAON LIFE. All Rights Reserved.</p>
+    <p>WWW.DAONLIFE.COM | 파트너 지원센터: 1588-XXXX</p>
+  </footer>
 
-    <footer>
-        <p>WWW.DAONLIFE.COM | PARTNER SUPPORT: 1588-XXXX</p>
-    </footer>
+  <div class="toast" id="toast"></div>
 
+  <script>
+    const generalRate = 70;
+    const currentRankName = "에이전트";
+    const referralLinkBase = "https://daonlife.kr/join?ref=";
+    const myReferralCode = "DAON2026";
+
+    document.getElementById("rankText").textContent = currentRankName;
+    document.getElementById("rateText").textContent = generalRate + "%";
+
+    var btnCopy = document.getElementById("btnCopy");
+    var toast = document.getElementById("toast");
+
+    btnCopy.addEventListener("click", function () {
+      var url = referralLinkBase + myReferralCode;
+      function done() {
+        btnCopy.textContent = "복사 완료!";
+        btnCopy.classList.add("copied");
+        toast.textContent = "추천 링크가 복사되었습니다!";
+        toast.classList.add("show");
+        setTimeout(function () {
+          btnCopy.textContent = "내 추천 링크 복사";
+          btnCopy.classList.remove("copied");
+          toast.classList.remove("show");
+        }, 2200);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done).catch(function () {
+          fallbackCopy(url, done);
+        });
+      } else {
+        fallbackCopy(url, done);
+      }
+    });
+
+    function fallbackCopy(text, cb) {
+      var input = document.createElement("input");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      cb();
+    }
+  </script>
 </body>
 </html>
